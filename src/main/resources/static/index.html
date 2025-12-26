@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Image to PDF Converter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        :root {
+          --bg: #0f172a;
+          --bg-elevated: #020617;
+          --accent: #38bdf8;
+          --accent-soft: rgba(56, 189, 248, 0.15);
+          --accent-strong: #0ea5e9;
+          --border-subtle: rgba(148, 163, 184, 0.25);
+          --text-main: #e5e7eb;
+          --text-muted: #9ca3af;
+          --error: #f97373;
+          --radius-lg: 18px;
+          --radius-sm: 10px;
+          --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.9);
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+            "Segoe UI", sans-serif;
+          background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+          color: var(--text-main);
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+        }
+
+        .shell {
+          width: 100%;
+          max-width: 900px;
+          background: linear-gradient(135deg, #020617 0, #020617 40%, #0b1120 100%);
+          border-radius: 28px;
+          padding: 28px;
+          border: 1px solid rgba(148, 163, 184, 0.25);
+          box-shadow: var(--shadow-soft);
+          display: grid;
+          grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+          gap: 24px;
+        }
+
+        @media (max-width: 800px) {
+          .shell {
+            grid-template-columns: minmax(0, 1fr);
+            padding: 20px;
+          }
+        }
+
+        .header {
+          margin-bottom: 18px;
+        }
+
+        .badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 3px 10px;
+          border-radius: 999px;
+          border: 1px solid rgba(148, 163, 184, 0.35);
+          background: rgba(15, 23, 42, 0.9);
+          color: var(--text-muted);
+          font-size: 11px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .badge-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 999px;
+          background: radial-gradient(circle at 30% 30%, #f9fafb, #22c55e);
+          box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+        }
+
+        h1 {
+          margin: 12px 0 6px;
+          font-size: 26px;
+          letter-spacing: 0.03em;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        h1 span.highlight {
+          background: linear-gradient(135deg, #38bdf8, #a855f7);
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+
+        .subtitle {
+          margin: 0;
+          font-size: 13px;
+          color: var(--text-muted);
+          max-width: 380px;
+        }
+
+        .card {
+          background: radial-gradient(circle at top left, #0b1120 0, #020617 50%);
+          border-radius: var(--radius-lg);
+          padding: 18px 18px 16px;
+          border: 1px solid var(--border-subtle);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .card::before {
+          content: "";
+          position: absolute;
+          inset: -80%;
+          background:
+            radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.13), transparent 48%),
+            radial-gradient(circle at 100% 0, rgba(147, 51, 234, 0.14), transparent 45%);
+          opacity: 0.7;
+          pointer-events: none;
+        }
+
+        .card-inner {
+          position: relative;
+          z-index: 1;
+        }
+
+        .field-group {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          margin-top: 10px;
+        }
+
+        label {
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: var(--text-muted);
+        }
+
+        .file-input-wrapper {
+          border-radius: var(--radius-sm);
+          border: 1px dashed rgba(148, 163, 184, 0.6);
+          background: rgba(15, 23, 42, 0.85);
+          padding: 16px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          cursor: pointer;
+          transition: border-color 0.2s ease, background 0.2s ease,
+            transform 0.1s ease;
+        }
+
+        .file-input-wrapper:hover {
+          border-color: var(--accent);
+          background: rgba(15, 23, 42, 0.95);
+          transform: translateY(-1px);
+        }
+
+        .file-icon {
+          width: 34px;
+          height: 34px;
+          border-radius: 14px;
+          background: radial-gradient(circle at 30% 0, #38bdf8, #0f172a);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #e5f4ff;
+          font-size: 16px;
+          box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+          flex-shrink: 0;
+        }
+
+        .file-text-main {
+          font-size: 13px;
+          font-weight: 500;
+        }
+
+        .file-text-sub {
+          font-size: 11px;
+          color: var(--text-muted);
+          margin-top: 2px;
+        }
+
+        input[type="file"] {
+          display: none;
+        }
+
+        .input-url {
+          width: 100%;
+          padding: 9px 10px;
+          border-radius: 999px;
+          border: 1px solid rgba(148, 163, 184, 0.7);
+          background: rgba(15, 23, 42, 0.9);
+          color: var(--text-main);
+          font-size: 12px;
+          outline: none;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease,
+            background 0.2s ease;
+        }
+
+        .input-url:focus {
+          border-color: var(--accent-strong);
+          background: #020617;
+          box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
+        }
+
+        .input-url::placeholder {
+          color: rgba(148, 163, 184, 0.8);
+        }
+
+        .pill-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 10px;
+        }
+
+        .pill {
+          font-size: 11px;
+          border-radius: 999px;
+          padding: 3px 9px;
+          border: 1px solid rgba(148, 163, 184, 0.4);
+          color: var(--text-muted);
+          background: rgba(15, 23, 42, 0.8);
+        }
+
+        .pill.accent {
+          border-color: rgba(56, 189, 248, 0.8);
+          background: var(--accent-soft);
+          color: #e0f2fe;
+        }
+
+        .actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          margin-top: 18px;
+        }
+
+        .btn-primary {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 10px 18px;
+          border-radius: 999px;
+          border: none;
+          background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+          color: #0b1120;
+          font-weight: 600;
+          font-size: 13px;
+          cursor: pointer;
+          box-shadow: 0 10px 30px rgba(8, 47, 73, 0.75);
+          transition: transform 0.1s ease, box-shadow 0.15s ease,
+            filter 0.2s ease;
+          min-width: 140px;
+        }
+
+        .btn-primary:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 14px 38px rgba(8, 47, 73, 0.9);
+          filter: brightness(1.05);
+        }
+
+        .btn-primary:active {
+          transform: translateY(0);
+          box-shadow: 0 8px 24px rgba(8, 47, 73, 0.8);
+        }
+
+        .btn-primary[disabled] {
+          opacity: 0.6;
+          cursor: default;
+          box-shadow: none;
+          transform: none;
+        }
+
+        .btn-secondary {
+          background: transparent;
+          border: none;
+          color: var(--text-muted);
+          font-size: 11px;
+          cursor: pointer;
+          padding: 0;
+          text-decoration: underline;
+          text-decoration-style: dotted;
+          text-underline-offset: 3px;
+        }
+
+        .status-text {
+          margin-top: 10px;
+          font-size: 11px;
+          color: var(--text-muted);
+          min-height: 14px;
+        }
+
+        .status-text span.ok {
+          color: #4ade80;
+        }
+
+        .status-text span.error {
+          color: var(--error);
+        }
+
+        .side {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .side-card {
+          border-radius: var(--radius-lg);
+          background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.2), transparent 55%),
+                      radial-gradient(circle at 100% 100%, rgba(147, 51, 234, 0.25), transparent 50%),
+                      #020617;
+          padding: 16px 18px;
+          border: 1px solid rgba(148, 163, 184, 0.35);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .side-title {
+          font-size: 13px;
+          font-weight: 600;
+          margin-bottom: 6px;
+        }
+
+        .side-body {
+          font-size: 12px;
+          color: var(--text-muted);
+          line-height: 1.5;
+        }
+
+        .tag-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-top: 10px;
+        }
+
+        .tag {
+          font-size: 10px;
+          padding: 3px 7px;
+          border-radius: 999px;
+          border: 1px solid rgba(148, 163, 184, 0.4);
+          background: rgba(15, 23, 42, 0.9);
+          color: var(--text-muted);
+        }
+
+        .metric-row {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 10px;
+          gap: 10px;
+        }
+
+        .metric {
+          flex: 1;
+          padding: 8px 10px;
+          border-radius: 12px;
+          background: rgba(15, 23, 42, 0.9);
+          border: 1px solid rgba(148, 163, 184, 0.3);
+          font-size: 11px;
+        }
+
+        .metric-label {
+          color: var(--text-muted);
+          margin-bottom: 4px;
+        }
+
+        .metric-value {
+          font-size: 13px;
+          font-weight: 600;
+        }
+
+        .metric-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          margin-top: 4px;
+          font-size: 10px;
+          padding: 2px 6px;
+          border-radius: 999px;
+          background: rgba(22, 163, 74, 0.16);
+          color: #bbf7d0;
+        }
+
+        .metric-pill.dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 999px;
+          background: #22c55e;
+        }
+    </style>
+</head>
+<body>
+<div class="shell">
+    <!-- Left: Form -->
+    <div>
+        <div class="header">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                LIVE · Image to PDF API
+            </div>
+            <h1>
+                <span>Convert</span>
+                <span class="highlight">images to PDF</span>
+            </h1>
+            <p class="subtitle">
+                Upload a JPG or PNG and this page will call your Render-hosted Spring Boot service and download a PDF.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-inner">
+                <form id="convertForm">
+                    <div class="field-group">
+                        <label for="fileInput">Image file</label>
+                        <label class="file-input-wrapper" for="fileInput">
+                            <div class="file-icon">✦</div>
+                            <div>
+                                <div class="file-text-main" id="fileLabelText">
+                                    Click to choose an image…
+                                </div>
+                                <div class="file-text-sub">
+                                    JPG, PNG, BMP, GIF · up to 10 MB
+                                </div>
+                            </div>
+                        </label>
+                        <input type="file" id="fileInput" accept="image/*" />
+                    </div>
+
+                    <div class="field-group">
+                        <label for="apiUrl">API endpoint</label>
+                        <input
+                                type="text"
+                                id="apiUrl"
+                                class="input-url"
+                                placeholder="https://your-service.onrender.com/api/pdf/convert"
+                                value="https://imagetopdf-service-v1.onrender.com/api/pdf/convert"
+                        />
+                        <div class="pill-row">
+                            <div class="pill accent">POST /api/pdf/convert</div>
+                            <div class="pill">Content-Type: multipart/form-data</div>
+                            <div class="pill">Field name: <code>file</code></div>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button type="submit" class="btn-primary" id="submitBtn">
+                            <span id="btnText">Convert & Download PDF</span>
+                        </button>
+                        <button type="button" class="btn-secondary" id="resetBtn">
+                            Reset form
+                        </button>
+                    </div>
+
+                    <div class="status-text" id="statusText"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Info / Status -->
+    <div class="side">
+        <div class="side-card">
+            <div class="side-title">How it works</div>
+            <div class="side-body">
+                This page sends your image file as <code>multipart/form-data</code> to your Spring Boot endpoint.
+                The backend converts it to a single-page PDF in memory and streams the PDF back as a download.
+            </div>
+            <div class="tag-row">
+                <div class="tag">Spring Boot · PDFBox</div>
+                <div class="tag">Render · Docker</div>
+                <div class="tag">No temp files</div>
+            </div>
+        </div>
+
+        <div class="side-card">
+            <div class="side-title">Runtime snapshot</div>
+            <div class="metric-row">
+                <div class="metric">
+                    <div class="metric-label">Backend health</div>
+                    <div class="metric-value" id="healthStatus">Unknown</div>
+                    <div class="metric-pill" id="healthPill" style="display:none;">
+                        <span class="metric-pill dot"></span>
+                        <span id="healthPillText">UP</span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Last request</div>
+                    <div class="metric-value" id="lastStatus">Idle</div>
+                    <div class="metric-pill" id="lastCodePill" style="display:none;">
+                        <span id="lastCodeText">–</span>
+                    </div>
+                </div>
+            </div>
+            <div class="side-body" style="margin-top: 10px; font-size: 11px;">
+                Tip: You can change the API URL above to test different environments (local, staging, Render, etc.).
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById("fileInput");
+    const fileLabelText = document.getElementById("fileLabelText");
+    const form = document.getElementById("convertForm");
+    const apiUrlInput = document.getElementById("apiUrl");
+    const statusText = document.getElementById("statusText");
+    const submitBtn = document.getElementById("submitBtn");
+    const btnText = document.getElementById("btnText");
+    const resetBtn = document.getElementById("resetBtn");
+
+    const healthStatus = document.getElementById("healthStatus");
+    const healthPill = document.getElementById("healthPill");
+    const healthPillText = document.getElementById("healthPillText");
+    const lastStatus = document.getElementById("lastStatus");
+    const lastCodePill = document.getElementById("lastCodePill");
+    const lastCodeText = document.getElementById("lastCodeText");
+
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files && fileInput.files.length > 0) {
+        fileLabelText.textContent = fileInput.files[0].name;
+      } else {
+        fileLabelText.textContent = "Click to choose an image…";
+      }
+    });
+
+    resetBtn.addEventListener("click", () => {
+      fileInput.value = "";
+      fileLabelText.textContent = "Click to choose an image…";
+      statusText.innerHTML = "";
+      lastStatus.textContent = "Idle";
+      lastCodePill.style.display = "none";
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const apiUrl = apiUrlInput.value.trim();
+      if (!apiUrl) {
+        statusText.innerHTML = '<span class="error">Please provide the API URL.</span>';
+        return;
+      }
+
+      if (!fileInput.files || fileInput.files.length === 0) {
+        statusText.innerHTML = '<span class="error">Please select an image file.</span>';
+        return;
+      }
+
+      const file = fileInput.files[0];
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      submitBtn.disabled = true;
+      btnText.textContent = "Converting…";
+      statusText.innerHTML = "Sending request to backend…";
+      lastStatus.textContent = "Pending";
+      lastCodePill.style.display = "none";
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          body: formData
+        });
+
+        const statusCode = response.status;
+        lastCodePill.style.display = "inline-flex";
+        lastCodeText.textContent = "HTTP " + statusCode;
+        if (statusCode >= 200 && statusCode < 300) {
+          lastCodePill.style.background = "rgba(22, 163, 74, 0.16)";
+          lastCodeText.style.color = "#bbf7d0";
+        } else {
+          lastCodePill.style.background = "rgba(248, 113, 113, 0.16)";
+          lastCodeText.style.color = "#fecaca";
+        }
+
+        if (!response.ok) {
+          lastStatus.textContent = "Error";
+          const text = await response.text();
+          statusText.innerHTML =
+            '<span class="error">Backend returned ' + statusCode + '.</span> ' +
+            "<br><small>" + (text || "Check server logs for details.") + "</small>";
+        } else {
+          const blob = await response.blob();
+          const contentType = response.headers.get("content-type") || "";
+          if (!contentType.includes("pdf")) {
+            statusText.innerHTML =
+              '<span class="error">Response is not a PDF (content-type: ' + contentType + ").</span>";
+            lastStatus.textContent = "Unexpected response";
+          } else {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+
+            const disposition = response.headers.get("content-disposition") || "";
+            const match = disposition.match(/filename="?([^"]+)"?/i);
+            const filename = match ? match[1] : "converted.pdf";
+
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+
+            statusText.innerHTML = '<span class="ok">PDF downloaded successfully.</span>';
+            lastStatus.textContent = "Success";
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        statusText.innerHTML =
+          '<span class="error">Network or CORS error. Check the endpoint and browser console.</span>';
+        lastStatus.textContent = "Network error";
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = "Convert & Download PDF";
+      }
+    });
+
+    async function checkHealth() {
+      try {
+        const url = apiUrlInput.value.trim();
+        if (!url) return;
+        const base = url.replace(/\/+$/, "").replace(/\/api\/pdf\/convert$/, "");
+        const healthUrl = base + "/actuator/health";
+
+        const res = await fetch(healthUrl, { method: "GET" });
+        healthPill.style.display = "inline-flex";
+        if (res.ok) {
+          healthStatus.textContent = "UP";
+          healthPillText.textContent = "UP";
+        } else {
+          healthStatus.textContent = "Responding (" + res.status + ")";
+          healthPillText.textContent = "Check";
+        }
+      } catch (e) {
+        healthStatus.textContent = "Unavailable";
+        healthPill.style.display = "none";
+      }
+    }
+
+    checkHealth();
+</script>
+</body>
+</html>
