@@ -283,9 +283,15 @@ docker-compose up -d
 ```bash
 # Tag the image
 docker tag imagetopdf-service:v1 your-registry/imagetopdf-service:v1
+e.g.: 1.docker tag imagetopdf-service:v1 voiceofpanky/imagetopdf-service:v1
+
+#Build docker image
+```bash
+2.docker build -t imagetopdf-service:v1 .
 
 # Push to registry (Docker Hub, AWS ECR, etc.)
 docker push your-registry/imagetopdf-service:v1
+3.docker push voiceofpanky/imagetopdf-service:latest
 ```
 
 ## ⚙️ Configuration

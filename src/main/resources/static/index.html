@@ -12,7 +12,7 @@
     <meta name="keywords" content="image to pdf, jpg to pdf, png to pdf, online pdf converter, free pdf tool, spring boot api, render hosting, edtech-shower, convert image to pdf online">
 
     <!-- Author -->
-    <meta name="author" content="Pankaj | EdTech Shower">
+    <meta name="author" content="pdf converter">
 
     <!-- Robots -->
     <meta name="robots" content="index, follow">
@@ -23,13 +23,13 @@
     <meta property="og:title" content="Image to PDF Converter | Fast & Free Online Tool">
     <meta property="og:description" content="Upload an image and convert it to PDF instantly. Powered by a Spring Boot REST API deployed on Render.">
     <meta property="og:url" content="https://imagetopdf-service-v1.onrender.com/index.html">
-    <meta property="og:image" content="https://imagetopdf-service-v1.onrender.com/EdTech-Shower.png">
+    <meta property="og:image" content="https://imagetopdf-service-v1.onrender.com">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Image to PDF Converter | Free Online Tool">
     <meta name="twitter:description" content="Convert JPG/PNG images to PDF instantly using a fast Spring Boot API. No signup required.">
-    <meta name="twitter:image" content="https://imagetopdf-service-v1.onrender.com/EdTech-Shower.png">
+    <meta name="twitter:image" content="https://imagetopdf-service-v1.onrender.com">
 
     <!-- Mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -431,32 +431,41 @@
           background: #22c55e;
         }
 
-        footer {
-      position: sticky;
-      bottom: 0;
-      width: 100%;
-      padding: 22px 0;
-      text-align: center;
-      font-size: 12px;
-      color: #9ca3af;
-      border-top: 1px solid rgba(148, 163, 184, 0.25);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(2, 6, 23, 0.92));
-      backdrop-filter: blur(8px);
-      border-radius: 18px 18px 0 0;
-      box-shadow: 0 -8px 25px rgba(0,0,0,0.35);
-    }
+       footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: 22px 0;
 
-    footer .icons {
-      display: flex;
-      justify-content: center;
-      gap: 22px;
-      margin-top: 8px;
-    }
+  /* Center everything inside */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    footer a {
-      color: #9ca3af;
-      text-decoration: none;
-    }
+  text-align: center;
+  font-size: 12px;
+  color: #9ca3af;
+
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(2, 6, 23, 0.92));
+  backdrop-filter: blur(8px);
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -8px 25px rgba(0,0,0,0.35);
+}
+
+footer .icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  margin-top: 8px;
+}
+
+footer a {
+  color: #9ca3af;
+  text-decoration: none;
+}
 
 
     </style>
@@ -498,21 +507,7 @@
                         <input type="file" id="fileInput" accept="image/*" />
                     </div>
 
-                    <div class="field-group">
-                        <label for="apiUrl">API endpoint</label>
-                        <input
-                                type="text"
-                                id="apiUrl"
-                                class="input-url"
-                                placeholder="https://your-service.onrender.com/api/pdf/convert"
-                                value="https://imagetopdf-service-v1.onrender.com/api/pdf/convert"
-                        />
-                        <div class="pill-row">
-                            <div class="pill accent">POST /api/pdf/convert</div>
-                            <div class="pill">Content-Type: multipart/form-data</div>
-                            <div class="pill">Field name: <code>file</code></div>
-                        </div>
-                    </div>
+
 
                     <div class="actions">
                         <button type="submit" class="btn-primary" id="submitBtn">
@@ -527,6 +522,7 @@
                 </form>
             </div>
         </div>
+
     </div>
 
     <!-- Right: Info / Status -->
@@ -566,8 +562,209 @@
             <div class="side-body" style="margin-top: 10px; font-size: 11px;">
                 Tip: You can change the API URL above to test different environments (local, staging, Render, etc.).
             </div>
+
+
+            <footer>
+
+                <style>
+                    footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: 22px 16px;
+  text-align: center;
+  font-size: 12px;
+  color: #9ca3af;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(2, 6, 23, 0.92));
+  backdrop-filter: blur(8px);
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -8px 25px rgba(0,0,0,0.35);
+
+  /* Center content */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+footer .footer-text {
+  margin-bottom: 4px;
+}
+
+footer .footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+footer .footer-toggle {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+footer .footer-toggle:hover {
+  color: #e5e7eb;
+}
+
+footer .footer-panel {
+  max-width: 720px;
+  margin-top: 8px;
+  text-align: left;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #d1d5db;
+
+  /* Collapsible behavior */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+
+/* When panel is open */
+footer .footer-panel.open {
+  max-height: 1000px; /* large enough to reveal content */
+  opacity: 1;
+}
+
+/* Panel headings */
+footer .footer-panel h4 {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #e5e7eb;
+}
+
+/* Links in footer (if any) */
+footer a {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+                </style>
+
+
+                <div class="footer-text">
+                    Image to PDF – Personal hobby project.
+                </div>
+
+                <div class="footer-links">
+                    <button class="footer-toggle" data-target="tos-panel">Terms of Service</button>
+                    <button class="footer-toggle" data-target="privacy-panel">Privacy Policy</button>
+                </div>
+
+                <div id="tos-panel" class="footer-panel">
+                    <h4>Terms of Service</h4>
+                    <p>
+                        This website is a personal hobby project that provides a free tool to convert images into PDF files.
+                        By using this service, you agree that you are solely responsible for the files you upload and the way you use the generated PDFs.
+                    </p>
+                    <p>
+                        You agree not to upload any illegal, harmful, or infringing content, including but not limited to copyrighted material that you do not have the right to use.
+                        You retain all rights to the files you upload and the PDFs generated from them.
+                    </p>
+                    <p>
+                        This service is provided “as is” without any warranties, express or implied. There is no guarantee of availability, uptime, performance, or fitness for any particular purpose.
+                        The developer is not liable for any loss, damage, or consequences arising from the use of this site or its output.
+                    </p>
+                    <p>
+                        This site is not a business and does not offer paid features, commercial support, service-level guarantees, or any form of compensated service.
+                    </p>
+                </div>
+
+                <div id="privacy-panel" class="footer-panel">
+                    <h4>Privacy Policy</h4>
+                    <p>
+                        This service is designed to process your images only for the purpose of converting them into PDF files.
+                        Uploaded images and generated PDFs are processed temporarily and are not intended to be stored after the conversion is complete.
+                    </p>
+                    <p>
+                        We do not create user accounts, do not track individual users, and do not sell or share any personal information.
+                        We do not intentionally log the contents of your files. Technical logs may include basic, non-identifying information such as request time and error details for maintenance and security purposes.
+                    </p>
+                    <p>
+                        We do not use cookies or analytics for tracking behavior across sites.
+                        However, your browser or network provider may still collect technical information as part of normal internet usage.
+                    </p>
+                    <p>
+                        By using this service, you understand that no system is perfectly secure, and you should avoid uploading highly sensitive or confidential information.
+                        If you do not agree with this policy, please do not use the service.
+                    </p>
+                </div>
+            </footer>
+
+            <script>
+                // Toggle panels on click
+                document.querySelectorAll('.footer-toggle').forEach(button => {
+                  button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    const panel = document.getElementById(targetId);
+
+                    // Collapse any other open panel (optional, comment out if you want both open)
+                    document.querySelectorAll('.footer-panel').forEach(p => {
+                      if (p !== panel) {
+                        p.classList.remove('open');
+                      }
+                    });
+
+                    // Toggle current panel
+                    panel.classList.toggle('open');
+                  });
+                });
+            </script>
+
+<!--            <footer style="-->
+<!--  position: sticky;-->
+<!--  bottom: 0;-->
+<!--  width: 100%;-->
+<!--  margin-top: 40px;-->
+<!--  padding: 22px 0;-->
+<!--  text-align: center;-->
+<!--  font-size: 12px;-->
+<!--  color: #9ca3af;-->
+<!--  border-top: 1px solid rgba(148, 163, 184, 0.25);-->
+<!--  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(2, 6, 23, 0.92));-->
+<!--  backdrop-filter: blur(8px);-->
+<!--  border-radius: 18px 18px 0 0;-->
+<!--  box-shadow: 0 -8px 25px rgba(0,0,0,0.35);-->
+<!--">-->
+<!--                <div style="margin-bottom: 10px;">-->
+<!--                    © 2025 · All Rights Reserved · :-->
+<!--                    <strong style="color:#38bdf8;"></strong>-->
+<!--                </div>-->
+
+<!--                <div style="display: flex; justify-content: center; gap: 22px; margin-top: 8px;">-->
+
+<!--                    &lt;!&ndash; GitHub &ndash;&gt;-->
+<!--                    <a href="https://github.com/voiceofpanky" target="_blank" style="color:#9ca3af; text-decoration:none;">-->
+<!--                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">-->
+<!--                            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.2 2.9 2.2 1.4 0 2.3-.7 2.7-1.4-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.9 1.2 2 1.2 3.3 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.3v3.4c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>-->
+<!--                        </svg>-->
+<!--                    </a>-->
+
+<!--                    &lt;!&ndash; LinkedIn &ndash;&gt;-->
+<!--                    <a href="https://linkedin.com/in/pankajsao" target="_blank" style="color:#9ca3af; text-decoration:none;">-->
+<!--                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">-->
+<!--                            <path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zm7 0h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6v6.2h-4V16c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.1h-4z"/>-->
+<!--                        </svg>-->
+<!--                    </a>-->
+
+<!--                </div>-->
+<!--            </footer>-->
         </div>
-        <footer style="
+
+
+
+    </div>
+    <footer style="
   position: sticky;
   bottom: 0;
   width: 100%;
@@ -582,39 +779,29 @@
   border-radius: 18px 18px 0 0;
   box-shadow: 0 -8px 25px rgba(0,0,0,0.35);
 ">
-            <div style="margin-bottom: 10px;">
-                © 2025 · All Rights Reserved · YouTube:
-                <strong style="color:#38bdf8;">@edtech-shower</strong>
-            </div>
+        <div style="margin-bottom: 10px;">
+            © 2025 · All Rights Reserved · :
+            <strong style="color:#38bdf8;"></strong>
+        </div>
 
-            <div style="display: flex; justify-content: center; gap: 22px; margin-top: 8px;">
+        <div style="display: flex; justify-content: center; gap: 22px; margin-top: 8px;">
 
-                <!-- GitHub -->
-                <a href="https://github.com/voiceofpanky" target="_blank" style="color:#9ca3af; text-decoration:none;">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.2 2.9 2.2 1.4 0 2.3-.7 2.7-1.4-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.9 1.2 2 1.2 3.3 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.3v3.4c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
-                    </svg>
-                </a>
+            <!-- GitHub -->
+            <a href="https://github.com/voiceofpanky" target="_blank" style="color:#9ca3af; text-decoration:none;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.2 2.9 2.2 1.4 0 2.3-.7 2.7-1.4-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.9 1.2 2 1.2 3.3 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.3v3.4c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+                </svg>
+            </a>
 
-                <!-- LinkedIn -->
-                <a href="https://linkedin.com/in/pankajsao" target="_blank" style="color:#9ca3af; text-decoration:none;">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zm7 0h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6v6.2h-4V16c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.1h-4z"/>
-                    </svg>
-                </a>
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com/in/pankajsao" target="_blank" style="color:#9ca3af; text-decoration:none;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zm7 0h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6v6.2h-4V16c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.1h-4z"/>
+                </svg>
+            </a>
 
-                <!-- YouTube -->
-                <a href="https://youtube.com/@edtech-shower" target="_blank" style="color:#9ca3af; text-decoration:none;">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23.5 6.2s-.2-1.7-.9-2.4c-.9-.9-1.9-.9-2.4-1C16.8 2.5 12 2.5 12 2.5h-.1s-4.8 0-8.2.3c-.5.1-1.5.1-2.4 1-.7.7-.9 2.4-.9 2.4S0 8.2 0 10.2v1.6c0 2 .2 4 .2 4s.2 1.7.9 2.4c.9.9 2.1.9 2.6 1 1.9.2 8.1.3 8.1.3s4.8 0 8.2-.3c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.4.9-2.4s.2-2 .2-4v-1.6c0-2-.2-4-.2-4zM9.7 14.7V8.8l6.3 2.9-6.3 3z"/>
-                    </svg>
-                </a>
-
-            </div>
-        </footer>
-
-
-    </div>
+        </div>
+    </footer>
 </div>
 
 <script>
