@@ -1,0 +1,7 @@
+# render.yaml example
+services:
+  type: web
+  name: imageToPdf-service-v1-1
+  env: java
+  # ... other configurations ...
+  healthCheckPath: /actuator/health
