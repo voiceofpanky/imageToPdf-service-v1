@@ -507,7 +507,23 @@ footer a {
                         <input type="file" id="fileInput" accept="image/*" />
                     </div>
 
+                    <div class="field-group" style="visibility: hidden; height: 0; margin: 0; padding: 0; position: absolute;">
+                        <label for="apiUrl" >API endpoint</label>
+                        <input
+                                type="text"
+                                id="apiUrl"
+                                class="input-url"
+                                placeholder="https://imagetopdf-service-v1-1.onrender.com/api/pdf/convert"
+                                value="https://imagetopdf-service-v1-1.onrender.com/api/pdf/convert"
 
+                        />
+                        <!-- value="https://imagetopdf-service-v1-1.onrender.com/api/pdf/convert" -->
+                        <div class="pill-row">
+                            <div class="pill accent">POST /api/pdf/convert</div>
+                            <div class="pill">Content-Type: multipart/form-data</div>
+                            <div class="pill">Field name: <code>file</code></div>
+                        </div>
+                    </div>
 
                     <div class="actions">
                         <button type="submit" class="btn-primary" id="submitBtn">
@@ -521,7 +537,46 @@ footer a {
                     <div class="status-text" id="statusText"></div>
                 </form>
             </div>
+            <footer style="
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  margin-top: 40px;
+  padding: 22px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #9ca3af;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(2, 6, 23, 0.92));
+  backdrop-filter: blur(8px);
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -8px 25px rgba(0,0,0,0.35);
+">
+                <div style="margin-bottom: 10px;">
+                    © 2025 · All Rights Reserved · :
+                    <strong style="color:#38bdf8;"></strong>
+                </div>
+
+                <div style="display: flex; justify-content: center; gap: 22px; margin-top: 8px;">
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/voiceofpanky" target="_blank" style="color:#9ca3af; text-decoration:none;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.2 2.9 2.2 1.4 0 2.3-.7 2.7-1.4-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.9 1.2 2 1.2 3.3 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.3v3.4c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+                        </svg>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://linkedin.com/in/pankajsao" target="_blank" style="color:#9ca3af; text-decoration:none;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zm7 0h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6v6.2h-4V16c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.1h-4z"/>
+                        </svg>
+                    </a>
+
+                </div>
+            </footer>
         </div>
+
 
     </div>
 
@@ -563,7 +618,9 @@ footer a {
                 Tip: You can change the API URL above to test different environments (local, staging, Render, etc.).
             </div>
 
+        </div>
 
+        <div class="side-card">
             <footer>
 
                 <style>
@@ -721,94 +778,23 @@ footer a {
                 });
             </script>
 
-<!--            <footer style="-->
-<!--  position: sticky;-->
-<!--  bottom: 0;-->
-<!--  width: 100%;-->
-<!--  margin-top: 40px;-->
-<!--  padding: 22px 0;-->
-<!--  text-align: center;-->
-<!--  font-size: 12px;-->
-<!--  color: #9ca3af;-->
-<!--  border-top: 1px solid rgba(148, 163, 184, 0.25);-->
-<!--  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(2, 6, 23, 0.92));-->
-<!--  backdrop-filter: blur(8px);-->
-<!--  border-radius: 18px 18px 0 0;-->
-<!--  box-shadow: 0 -8px 25px rgba(0,0,0,0.35);-->
-<!--">-->
-<!--                <div style="margin-bottom: 10px;">-->
-<!--                    © 2025 · All Rights Reserved · :-->
-<!--                    <strong style="color:#38bdf8;"></strong>-->
-<!--                </div>-->
 
-<!--                <div style="display: flex; justify-content: center; gap: 22px; margin-top: 8px;">-->
-
-<!--                    &lt;!&ndash; GitHub &ndash;&gt;-->
-<!--                    <a href="https://github.com/voiceofpanky" target="_blank" style="color:#9ca3af; text-decoration:none;">-->
-<!--                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">-->
-<!--                            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.2 2.9 2.2 1.4 0 2.3-.7 2.7-1.4-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.9 1.2 2 1.2 3.3 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.3v3.4c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>-->
-<!--                        </svg>-->
-<!--                    </a>-->
-
-<!--                    &lt;!&ndash; LinkedIn &ndash;&gt;-->
-<!--                    <a href="https://linkedin.com/in/pankajsao" target="_blank" style="color:#9ca3af; text-decoration:none;">-->
-<!--                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">-->
-<!--                            <path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zm7 0h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6v6.2h-4V16c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.1h-4z"/>-->
-<!--                        </svg>-->
-<!--                    </a>-->
-
-<!--                </div>-->
-<!--            </footer>-->
-        </div>
-
+            </div>
 
 
     </div>
-    <footer style="
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-  margin-top: 40px;
-  padding: 22px 0;
-  text-align: center;
-  font-size: 12px;
-  color: #9ca3af;
-  border-top: 1px solid rgba(148, 163, 184, 0.25);
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(2, 6, 23, 0.92));
-  backdrop-filter: blur(8px);
-  border-radius: 18px 18px 0 0;
-  box-shadow: 0 -8px 25px rgba(0,0,0,0.35);
-">
-        <div style="margin-bottom: 10px;">
-            © 2025 · All Rights Reserved · :
-            <strong style="color:#38bdf8;"></strong>
-        </div>
 
-        <div style="display: flex; justify-content: center; gap: 22px; margin-top: 8px;">
 
-            <!-- GitHub -->
-            <a href="https://github.com/voiceofpanky" target="_blank" style="color:#9ca3af; text-decoration:none;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.2 2.9 2.2 1.4 0 2.3-.7 2.7-1.4-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.9 1.2 2 1.2 3.3 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.3v3.4c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
-                </svg>
-            </a>
-
-            <!-- LinkedIn -->
-            <a href="https://linkedin.com/in/pankajsao" target="_blank" style="color:#9ca3af; text-decoration:none;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zm7 0h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6v6.2h-4V16c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.1h-4z"/>
-                </svg>
-            </a>
-
-        </div>
-    </footer>
 </div>
 
 <script>
+    //"https://imagetopdf-service-v1-1.onrender.com";
     const fileInput = document.getElementById("fileInput");
     const fileLabelText = document.getElementById("fileLabelText");
     const form = document.getElementById("convertForm");
     const apiUrlInput = document.getElementById("apiUrl");
+   // const apiUrlInput= "https://imagetopdf-service-v1-1.onrender.com/api/pdf/convert";
+   // const apiUrlInput= "http://localhost:8080/api/pdf/convert";
     const statusText = document.getElementById("statusText");
     const submitBtn = document.getElementById("submitBtn");
     const btnText = document.getElementById("btnText");
@@ -839,7 +825,6 @@ footer a {
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
       const apiUrl = apiUrlInput.value.trim();
       if (!apiUrl) {
         statusText.innerHTML = '<span class="error">Please provide the API URL.</span>';
