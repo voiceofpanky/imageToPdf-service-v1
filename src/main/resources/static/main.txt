@@ -1,0 +1,768 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8" />-->
+<!--    <title>Image to PDF Converter</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+<!--    &lt;!&ndash; Primary Meta Tags &ndash;&gt;-->
+<!--    <title>Image to PDF Converter | Fast Online JPG/PNG to PDF Tool</title>-->
+<!--    <meta name="title" content="Image to PDF Converter | Fast Online JPG/PNG to PDF Tool">-->
+<!--    <meta name="description" content="Convert images to PDF instantly using a fast, secure, and free online tool powered by a Spring Boot REST API hosted on Render. Supports JPG, PNG, BMP, and GIF.">-->
+<!--    <meta name="google-site-verification" content="y11ZfCtNO7hogyw6gZA2GkcRWvN4X_8zVStGJbh7k5k" />    &lt;!&ndash; Keywords &ndash;&gt;-->
+<!--    <meta name="keywords" content="image to pdf, jpg to pdf, png to pdf, online pdf converter, free pdf tool, spring boot api, render hosting, edtech-shower, convert image to pdf online">-->
+
+<!--    &lt;!&ndash; Author &ndash;&gt;-->
+<!--    <meta name="author" content="Pankaj | EdTech Shower">-->
+
+<!--    &lt;!&ndash; Robots &ndash;&gt;-->
+<!--    <meta name="robots" content="index, follow">-->
+<!--    <meta name="googlebot" content="index, follow">-->
+
+<!--    &lt;!&ndash; Open Graph / Facebook / LinkedIn &ndash;&gt;-->
+<!--    <meta property="og:type" content="website">-->
+<!--    <meta property="og:title" content="Image to PDF Converter | Fast & Free Online Tool">-->
+<!--    <meta property="og:description" content="Upload an image and convert it to PDF instantly. Powered by a Spring Boot REST API deployed on Render.">-->
+<!--    <meta property="og:url" content="https://imagetopdf-service-v1.onrender.com/index.html">-->
+<!--    <meta property="og:image" content="https://imagetopdf-service-v1.onrender.com/EdTech-Shower.png">-->
+
+<!--    &lt;!&ndash; Twitter Card &ndash;&gt;-->
+<!--    <meta name="twitter:card" content="summary_large_image">-->
+<!--    <meta name="twitter:title" content="Image to PDF Converter | Free Online Tool">-->
+<!--    <meta name="twitter:description" content="Convert JPG/PNG images to PDF instantly using a fast Spring Boot API. No signup required.">-->
+<!--    <meta name="twitter:image" content="https://imagetopdf-service-v1.onrender.com/EdTech-Shower.png">-->
+
+<!--    &lt;!&ndash; Mobile &ndash;&gt;-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
+<!--    &lt;!&ndash; Theme Color (nice for mobile browsers) &ndash;&gt;-->
+<!--    <meta name="theme-color" content="#0f172a">-->
+<!--    <style>-->
+<!--        :root {-->
+<!--          &#45;&#45;bg: #0f172a;-->
+<!--          &#45;&#45;bg-elevated: #020617;-->
+<!--          &#45;&#45;accent: #38bdf8;-->
+<!--          &#45;&#45;accent-soft: rgba(56, 189, 248, 0.15);-->
+<!--          &#45;&#45;accent-strong: #0ea5e9;-->
+<!--          &#45;&#45;border-subtle: rgba(148, 163, 184, 0.25);-->
+<!--          &#45;&#45;text-main: #e5e7eb;-->
+<!--          &#45;&#45;text-muted: #9ca3af;-->
+<!--          &#45;&#45;error: #f97373;-->
+<!--          &#45;&#45;radius-lg: 18px;-->
+<!--          &#45;&#45;radius-sm: 10px;-->
+<!--          &#45;&#45;shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.9);-->
+<!--        }-->
+
+<!--        * {-->
+<!--          box-sizing: border-box;-->
+<!--        }-->
+
+<!--        body {-->
+<!--          margin: 0;-->
+<!--          font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",-->
+<!--            "Segoe UI", sans-serif;-->
+<!--          background: radial-gradient(circle at top, #1f2937 0, #020617 55%);-->
+<!--          color: var(&#45;&#45;text-main);-->
+<!--          min-height: 100vh;-->
+<!--          display: flex;-->
+<!--          align-items: center;-->
+<!--          justify-content: center;-->
+<!--          padding: 24px;-->
+<!--        }-->
+
+<!--        .shell {-->
+<!--          width: 100%;-->
+<!--          max-width: 900px;-->
+<!--          background: linear-gradient(135deg, #020617 0, #020617 40%, #0b1120 100%);-->
+<!--          border-radius: 28px;-->
+<!--          padding: 28px;-->
+<!--          border: 1px solid rgba(148, 163, 184, 0.25);-->
+<!--          box-shadow: var(&#45;&#45;shadow-soft);-->
+<!--          display: grid;-->
+<!--          grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);-->
+<!--          gap: 24px;-->
+<!--        }-->
+
+<!--        @media (max-width: 800px) {-->
+<!--          .shell {-->
+<!--            grid-template-columns: minmax(0, 1fr);-->
+<!--            padding: 20px;-->
+<!--          }-->
+<!--        }-->
+
+<!--        .header {-->
+<!--          margin-bottom: 18px;-->
+<!--        }-->
+
+<!--        .badge {-->
+<!--          display: inline-flex;-->
+<!--          align-items: center;-->
+<!--          gap: 6px;-->
+<!--          padding: 3px 10px;-->
+<!--          border-radius: 999px;-->
+<!--          border: 1px solid rgba(148, 163, 184, 0.35);-->
+<!--          background: rgba(15, 23, 42, 0.9);-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--          font-size: 11px;-->
+<!--          letter-spacing: 0.08em;-->
+<!--          text-transform: uppercase;-->
+<!--        }-->
+
+<!--        .badge-dot {-->
+<!--          width: 8px;-->
+<!--          height: 8px;-->
+<!--          border-radius: 999px;-->
+<!--          background: radial-gradient(circle at 30% 30%, #f9fafb, #22c55e);-->
+<!--          box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--          margin: 12px 0 6px;-->
+<!--          font-size: 26px;-->
+<!--          letter-spacing: 0.03em;-->
+<!--          display: flex;-->
+<!--          align-items: center;-->
+<!--          gap: 8px;-->
+<!--        }-->
+
+<!--        h1 span.highlight {-->
+<!--          background: linear-gradient(135deg, #38bdf8, #a855f7);-->
+<!--          -webkit-background-clip: text;-->
+<!--          color: transparent;-->
+<!--        }-->
+
+<!--        .subtitle {-->
+<!--          margin: 0;-->
+<!--          font-size: 13px;-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--          max-width: 380px;-->
+<!--        }-->
+
+<!--        .card {-->
+<!--          background: radial-gradient(circle at top left, #0b1120 0, #020617 50%);-->
+<!--          border-radius: var(&#45;&#45;radius-lg);-->
+<!--          padding: 18px 18px 16px;-->
+<!--          border: 1px solid var(&#45;&#45;border-subtle);-->
+<!--          position: relative;-->
+<!--          overflow: hidden;-->
+<!--        }-->
+
+<!--        .card::before {-->
+<!--          content: "";-->
+<!--          position: absolute;-->
+<!--          inset: -80%;-->
+<!--          background:-->
+<!--            radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.13), transparent 48%),-->
+<!--            radial-gradient(circle at 100% 0, rgba(147, 51, 234, 0.14), transparent 45%);-->
+<!--          opacity: 0.7;-->
+<!--          pointer-events: none;-->
+<!--        }-->
+
+<!--        .card-inner {-->
+<!--          position: relative;-->
+<!--          z-index: 1;-->
+<!--        }-->
+
+<!--        .field-group {-->
+<!--          display: flex;-->
+<!--          flex-direction: column;-->
+<!--          gap: 12px;-->
+<!--          margin-top: 10px;-->
+<!--        }-->
+
+<!--        label {-->
+<!--          font-size: 12px;-->
+<!--          text-transform: uppercase;-->
+<!--          letter-spacing: 0.12em;-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--        }-->
+
+<!--        .file-input-wrapper {-->
+<!--          border-radius: var(&#45;&#45;radius-sm);-->
+<!--          border: 1px dashed rgba(148, 163, 184, 0.6);-->
+<!--          background: rgba(15, 23, 42, 0.85);-->
+<!--          padding: 16px;-->
+<!--          display: flex;-->
+<!--          align-items: center;-->
+<!--          gap: 14px;-->
+<!--          cursor: pointer;-->
+<!--          transition: border-color 0.2s ease, background 0.2s ease,-->
+<!--            transform 0.1s ease;-->
+<!--        }-->
+
+<!--        .file-input-wrapper:hover {-->
+<!--          border-color: var(&#45;&#45;accent);-->
+<!--          background: rgba(15, 23, 42, 0.95);-->
+<!--          transform: translateY(-1px);-->
+<!--        }-->
+
+<!--        .file-icon {-->
+<!--          width: 34px;-->
+<!--          height: 34px;-->
+<!--          border-radius: 14px;-->
+<!--          background: radial-gradient(circle at 30% 0, #38bdf8, #0f172a);-->
+<!--          display: flex;-->
+<!--          align-items: center;-->
+<!--          justify-content: center;-->
+<!--          color: #e5f4ff;-->
+<!--          font-size: 16px;-->
+<!--          box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);-->
+<!--          flex-shrink: 0;-->
+<!--        }-->
+
+<!--        .file-text-main {-->
+<!--          font-size: 13px;-->
+<!--          font-weight: 500;-->
+<!--        }-->
+
+<!--        .file-text-sub {-->
+<!--          font-size: 11px;-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--          margin-top: 2px;-->
+<!--        }-->
+
+<!--        input[type="file"] {-->
+<!--          display: none;-->
+<!--        }-->
+
+<!--        .input-url {-->
+<!--          width: 100%;-->
+<!--          padding: 9px 10px;-->
+<!--          border-radius: 999px;-->
+<!--          border: 1px solid rgba(148, 163, 184, 0.7);-->
+<!--          background: rgba(15, 23, 42, 0.9);-->
+<!--          color: var(&#45;&#45;text-main);-->
+<!--          font-size: 12px;-->
+<!--          outline: none;-->
+<!--          transition: border-color 0.2s ease, box-shadow 0.2s ease,-->
+<!--            background 0.2s ease;-->
+<!--        }-->
+
+<!--        .input-url:focus {-->
+<!--          border-color: var(&#45;&#45;accent-strong);-->
+<!--          background: #020617;-->
+<!--          box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);-->
+<!--        }-->
+
+<!--        .input-url::placeholder {-->
+<!--          color: rgba(148, 163, 184, 0.8);-->
+<!--        }-->
+
+<!--        .pill-row {-->
+<!--          display: flex;-->
+<!--          flex-wrap: wrap;-->
+<!--          gap: 8px;-->
+<!--          margin-top: 10px;-->
+<!--        }-->
+
+<!--        .pill {-->
+<!--          font-size: 11px;-->
+<!--          border-radius: 999px;-->
+<!--          padding: 3px 9px;-->
+<!--          border: 1px solid rgba(148, 163, 184, 0.4);-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--          background: rgba(15, 23, 42, 0.8);-->
+<!--        }-->
+
+<!--        .pill.accent {-->
+<!--          border-color: rgba(56, 189, 248, 0.8);-->
+<!--          background: var(&#45;&#45;accent-soft);-->
+<!--          color: #e0f2fe;-->
+<!--        }-->
+
+<!--        .actions {-->
+<!--          display: flex;-->
+<!--          align-items: center;-->
+<!--          justify-content: space-between;-->
+<!--          gap: 10px;-->
+<!--          margin-top: 18px;-->
+<!--        }-->
+
+<!--        .btn-primary {-->
+<!--          display: inline-flex;-->
+<!--          align-items: center;-->
+<!--          justify-content: center;-->
+<!--          gap: 8px;-->
+<!--          padding: 10px 18px;-->
+<!--          border-radius: 999px;-->
+<!--          border: none;-->
+<!--          background: linear-gradient(135deg, var(&#45;&#45;accent), var(&#45;&#45;accent-strong));-->
+<!--          color: #0b1120;-->
+<!--          font-weight: 600;-->
+<!--          font-size: 13px;-->
+<!--          cursor: pointer;-->
+<!--          box-shadow: 0 10px 30px rgba(8, 47, 73, 0.75);-->
+<!--          transition: transform 0.1s ease, box-shadow 0.15s ease,-->
+<!--            filter 0.2s ease;-->
+<!--          min-width: 140px;-->
+<!--        }-->
+
+<!--        .btn-primary:hover {-->
+<!--          transform: translateY(-1px);-->
+<!--          box-shadow: 0 14px 38px rgba(8, 47, 73, 0.9);-->
+<!--          filter: brightness(1.05);-->
+<!--        }-->
+
+<!--        .btn-primary:active {-->
+<!--          transform: translateY(0);-->
+<!--          box-shadow: 0 8px 24px rgba(8, 47, 73, 0.8);-->
+<!--        }-->
+
+<!--        .btn-primary[disabled] {-->
+<!--          opacity: 0.6;-->
+<!--          cursor: default;-->
+<!--          box-shadow: none;-->
+<!--          transform: none;-->
+<!--        }-->
+
+<!--        .btn-secondary {-->
+<!--          background: transparent;-->
+<!--          border: none;-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--          font-size: 11px;-->
+<!--          cursor: pointer;-->
+<!--          padding: 0;-->
+<!--          text-decoration: underline;-->
+<!--          text-decoration-style: dotted;-->
+<!--          text-underline-offset: 3px;-->
+<!--        }-->
+
+<!--        .status-text {-->
+<!--          margin-top: 10px;-->
+<!--          font-size: 11px;-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--          min-height: 14px;-->
+<!--        }-->
+
+<!--        .status-text span.ok {-->
+<!--          color: #4ade80;-->
+<!--        }-->
+
+<!--        .status-text span.error {-->
+<!--          color: var(&#45;&#45;error);-->
+<!--        }-->
+
+<!--        .side {-->
+<!--          display: flex;-->
+<!--          flex-direction: column;-->
+<!--          gap: 14px;-->
+<!--        }-->
+
+<!--        .side-card {-->
+<!--          border-radius: var(&#45;&#45;radius-lg);-->
+<!--          background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.2), transparent 55%),-->
+<!--                      radial-gradient(circle at 100% 100%, rgba(147, 51, 234, 0.25), transparent 50%),-->
+<!--                      #020617;-->
+<!--          padding: 16px 18px;-->
+<!--          border: 1px solid rgba(148, 163, 184, 0.35);-->
+<!--          position: relative;-->
+<!--          overflow: hidden;-->
+<!--        }-->
+
+<!--        .side-title {-->
+<!--          font-size: 13px;-->
+<!--          font-weight: 600;-->
+<!--          margin-bottom: 6px;-->
+<!--        }-->
+
+<!--        .side-body {-->
+<!--          font-size: 12px;-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--          line-height: 1.5;-->
+<!--        }-->
+
+<!--        .tag-row {-->
+<!--          display: flex;-->
+<!--          flex-wrap: wrap;-->
+<!--          gap: 6px;-->
+<!--          margin-top: 10px;-->
+<!--        }-->
+
+<!--        .tag {-->
+<!--          font-size: 10px;-->
+<!--          padding: 3px 7px;-->
+<!--          border-radius: 999px;-->
+<!--          border: 1px solid rgba(148, 163, 184, 0.4);-->
+<!--          background: rgba(15, 23, 42, 0.9);-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--        }-->
+
+<!--        .metric-row {-->
+<!--          display: flex;-->
+<!--          justify-content: space-between;-->
+<!--          margin-top: 10px;-->
+<!--          gap: 10px;-->
+<!--        }-->
+
+<!--        .metric {-->
+<!--          flex: 1;-->
+<!--          padding: 8px 10px;-->
+<!--          border-radius: 12px;-->
+<!--          background: rgba(15, 23, 42, 0.9);-->
+<!--          border: 1px solid rgba(148, 163, 184, 0.3);-->
+<!--          font-size: 11px;-->
+<!--        }-->
+
+<!--        .metric-label {-->
+<!--          color: var(&#45;&#45;text-muted);-->
+<!--          margin-bottom: 4px;-->
+<!--        }-->
+
+<!--        .metric-value {-->
+<!--          font-size: 13px;-->
+<!--          font-weight: 600;-->
+<!--        }-->
+
+<!--        .metric-pill {-->
+<!--          display: inline-flex;-->
+<!--          align-items: center;-->
+<!--          gap: 4px;-->
+<!--          margin-top: 4px;-->
+<!--          font-size: 10px;-->
+<!--          padding: 2px 6px;-->
+<!--          border-radius: 999px;-->
+<!--          background: rgba(22, 163, 74, 0.16);-->
+<!--          color: #bbf7d0;-->
+<!--        }-->
+
+<!--        .metric-pill.dot {-->
+<!--          width: 6px;-->
+<!--          height: 6px;-->
+<!--          border-radius: 999px;-->
+<!--          background: #22c55e;-->
+<!--        }-->
+
+<!--        footer {-->
+<!--      position: sticky;-->
+<!--      bottom: 0;-->
+<!--      width: 100%;-->
+<!--      padding: 22px 0;-->
+<!--      text-align: center;-->
+<!--      font-size: 12px;-->
+<!--      color: #9ca3af;-->
+<!--      border-top: 1px solid rgba(148, 163, 184, 0.25);-->
+<!--      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(2, 6, 23, 0.92));-->
+<!--      backdrop-filter: blur(8px);-->
+<!--      border-radius: 18px 18px 0 0;-->
+<!--      box-shadow: 0 -8px 25px rgba(0,0,0,0.35);-->
+<!--    }-->
+
+<!--    footer .icons {-->
+<!--      display: flex;-->
+<!--      justify-content: center;-->
+<!--      gap: 22px;-->
+<!--      margin-top: 8px;-->
+<!--    }-->
+
+<!--    footer a {-->
+<!--      color: #9ca3af;-->
+<!--      text-decoration: none;-->
+<!--    }-->
+
+
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="shell">-->
+<!--    &lt;!&ndash; Left: Form &ndash;&gt;-->
+<!--    <div>-->
+<!--        <div class="header">-->
+<!--            <div class="badge">-->
+<!--                <span class="badge-dot"></span>-->
+<!--                LIVE · Image to PDF API-->
+<!--            </div>-->
+<!--            <h1>-->
+<!--                <span>Convert</span>-->
+<!--                <span class="highlight">images to PDF</span>-->
+<!--            </h1>-->
+<!--            <p class="subtitle">-->
+<!--                Upload a JPG or PNG and this page will call your Render-hosted Spring Boot service and download a PDF.-->
+<!--            </p>-->
+<!--        </div>-->
+
+<!--        <div class="card">-->
+<!--            <div class="card-inner">-->
+<!--                <form id="convertForm">-->
+<!--                    <div class="field-group">-->
+<!--                        <label for="fileInput">Image file</label>-->
+<!--                        <label class="file-input-wrapper" for="fileInput">-->
+<!--                            <div class="file-icon">✦</div>-->
+<!--                            <div>-->
+<!--                                <div class="file-text-main" id="fileLabelText">-->
+<!--                                    Click to choose an image…-->
+<!--                                </div>-->
+<!--                                <div class="file-text-sub">-->
+<!--                                    JPG, PNG, BMP, GIF · up to 10 MB-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </label>-->
+<!--                        <input type="file" id="fileInput" accept="image/*" />-->
+<!--                    </div>-->
+
+<!--                    <div class="field-group">-->
+<!--                        <label for="apiUrl">API endpoint</label>-->
+<!--                        <input-->
+<!--                                type="text"-->
+<!--                                id="apiUrl"-->
+<!--                                class="input-url"-->
+<!--                                placeholder="https://your-service.onrender.com/api/pdf/convert"-->
+<!--                                value="https://imagetopdf-service-v1.onrender.com/api/pdf/convert"-->
+<!--                        />-->
+<!--                        <div class="pill-row">-->
+<!--                            <div class="pill accent">POST /api/pdf/convert</div>-->
+<!--                            <div class="pill">Content-Type: multipart/form-data</div>-->
+<!--                            <div class="pill">Field name: <code>file</code></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="actions">-->
+<!--                        <button type="submit" class="btn-primary" id="submitBtn">-->
+<!--                            <span id="btnText">Convert & Download PDF</span>-->
+<!--                        </button>-->
+<!--                        <button type="button" class="btn-secondary" id="resetBtn">-->
+<!--                            Reset form-->
+<!--                        </button>-->
+<!--                    </div>-->
+
+<!--                    <div class="status-text" id="statusText"></div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Right: Info / Status &ndash;&gt;-->
+<!--    <div class="side">-->
+<!--        <div class="side-card">-->
+<!--            <div class="side-title">How it works</div>-->
+<!--            <div class="side-body">-->
+<!--                This page sends your image file as <code>multipart/form-data</code> to your Spring Boot endpoint.-->
+<!--                The backend converts it to a single-page PDF in memory and streams the PDF back as a download.-->
+<!--            </div>-->
+<!--            <div class="tag-row">-->
+<!--                <div class="tag">Spring Boot · PDFBox</div>-->
+<!--                <div class="tag">Render · Docker</div>-->
+<!--                <div class="tag">No temp files</div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="side-card">-->
+<!--            <div class="side-title">Runtime snapshot</div>-->
+<!--            <div class="metric-row">-->
+<!--                <div class="metric">-->
+<!--                    <div class="metric-label">Backend health</div>-->
+<!--                    <div class="metric-value" id="healthStatus">Unknown</div>-->
+<!--                    <div class="metric-pill" id="healthPill" style="display:none;">-->
+<!--                        <span class="metric-pill dot"></span>-->
+<!--                        <span id="healthPillText">UP</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="metric">-->
+<!--                    <div class="metric-label">Last request</div>-->
+<!--                    <div class="metric-value" id="lastStatus">Idle</div>-->
+<!--                    <div class="metric-pill" id="lastCodePill" style="display:none;">-->
+<!--                        <span id="lastCodeText">–</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="side-body" style="margin-top: 10px; font-size: 11px;">-->
+<!--                Tip: You can change the API URL above to test different environments (local, staging, Render, etc.).-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <footer style="-->
+<!--  position: sticky;-->
+<!--  bottom: 0;-->
+<!--  width: 100%;-->
+<!--  margin-top: 40px;-->
+<!--  padding: 22px 0;-->
+<!--  text-align: center;-->
+<!--  font-size: 12px;-->
+<!--  color: #9ca3af;-->
+<!--  border-top: 1px solid rgba(148, 163, 184, 0.25);-->
+<!--  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(2, 6, 23, 0.92));-->
+<!--  backdrop-filter: blur(8px);-->
+<!--  border-radius: 18px 18px 0 0;-->
+<!--  box-shadow: 0 -8px 25px rgba(0,0,0,0.35);-->
+<!--">-->
+<!--            <div style="margin-bottom: 10px;">-->
+<!--                © 2025 · All Rights Reserved · YouTube:-->
+<!--                <strong style="color:#38bdf8;">@edtech-shower</strong>-->
+<!--            </div>-->
+
+<!--            <div style="display: flex; justify-content: center; gap: 22px; margin-top: 8px;">-->
+
+<!--                &lt;!&ndash; GitHub &ndash;&gt;-->
+<!--                <a href="https://github.com/voiceofpanky" target="_blank" style="color:#9ca3af; text-decoration:none;">-->
+<!--                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">-->
+<!--                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.2 2.9 2.2 1.4 0 2.3-.7 2.7-1.4-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.9 1.2 2 1.2 3.3 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.3v3.4c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>-->
+<!--                    </svg>-->
+<!--                </a>-->
+
+<!--                &lt;!&ndash; LinkedIn &ndash;&gt;-->
+<!--                <a href="https://linkedin.com/in/pankajsao" target="_blank" style="color:#9ca3af; text-decoration:none;">-->
+<!--                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">-->
+<!--                        <path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zm7 0h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6v6.2h-4V16c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.1h-4z"/>-->
+<!--                    </svg>-->
+<!--                </a>-->
+
+<!--                &lt;!&ndash; YouTube &ndash;&gt;-->
+<!--                <a href="https://youtube.com/@edtech-shower" target="_blank" style="color:#9ca3af; text-decoration:none;">-->
+<!--                    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">-->
+<!--                        <path d="M23.5 6.2s-.2-1.7-.9-2.4c-.9-.9-1.9-.9-2.4-1C16.8 2.5 12 2.5 12 2.5h-.1s-4.8 0-8.2.3c-.5.1-1.5.1-2.4 1-.7.7-.9 2.4-.9 2.4S0 8.2 0 10.2v1.6c0 2 .2 4 .2 4s.2 1.7.9 2.4c.9.9 2.1.9 2.6 1 1.9.2 8.1.3 8.1.3s4.8 0 8.2-.3c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.4.9-2.4s.2-2 .2-4v-1.6c0-2-.2-4-.2-4zM9.7 14.7V8.8l6.3 2.9-6.3 3z"/>-->
+<!--                    </svg>-->
+<!--                </a>-->
+
+<!--            </div>-->
+<!--        </footer>-->
+
+
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    const fileInput = document.getElementById("fileInput");-->
+<!--    const fileLabelText = document.getElementById("fileLabelText");-->
+<!--    const form = document.getElementById("convertForm");-->
+<!--    const apiUrlInput = document.getElementById("apiUrl");-->
+<!--    const statusText = document.getElementById("statusText");-->
+<!--    const submitBtn = document.getElementById("submitBtn");-->
+<!--    const btnText = document.getElementById("btnText");-->
+<!--    const resetBtn = document.getElementById("resetBtn");-->
+
+<!--    const healthStatus = document.getElementById("healthStatus");-->
+<!--    const healthPill = document.getElementById("healthPill");-->
+<!--    const healthPillText = document.getElementById("healthPillText");-->
+<!--    const lastStatus = document.getElementById("lastStatus");-->
+<!--    const lastCodePill = document.getElementById("lastCodePill");-->
+<!--    const lastCodeText = document.getElementById("lastCodeText");-->
+
+<!--    fileInput.addEventListener("change", () => {-->
+<!--      if (fileInput.files && fileInput.files.length > 0) {-->
+<!--        fileLabelText.textContent = fileInput.files[0].name;-->
+<!--      } else {-->
+<!--        fileLabelText.textContent = "Click to choose an image…";-->
+<!--      }-->
+<!--    });-->
+
+<!--    resetBtn.addEventListener("click", () => {-->
+<!--      fileInput.value = "";-->
+<!--      fileLabelText.textContent = "Click to choose an image…";-->
+<!--      statusText.innerHTML = "";-->
+<!--      lastStatus.textContent = "Idle";-->
+<!--      lastCodePill.style.display = "none";-->
+<!--    });-->
+
+<!--    form.addEventListener("submit", async (e) => {-->
+<!--      e.preventDefault();-->
+
+<!--      const apiUrl = apiUrlInput.value.trim();-->
+<!--      if (!apiUrl) {-->
+<!--        statusText.innerHTML = '<span class="error">Please provide the API URL.</span>';-->
+<!--        return;-->
+<!--      }-->
+
+<!--      if (!fileInput.files || fileInput.files.length === 0) {-->
+<!--        statusText.innerHTML = '<span class="error">Please select an image file.</span>';-->
+<!--        return;-->
+<!--      }-->
+
+<!--      const file = fileInput.files[0];-->
+
+<!--      const formData = new FormData();-->
+<!--      formData.append("file", file);-->
+
+<!--      submitBtn.disabled = true;-->
+<!--      btnText.textContent = "Converting…";-->
+<!--      statusText.innerHTML = "Sending request to backend…";-->
+<!--      lastStatus.textContent = "Pending";-->
+<!--      lastCodePill.style.display = "none";-->
+
+<!--      try {-->
+<!--        const response = await fetch(apiUrl, {-->
+<!--          method: "POST",-->
+<!--          body: formData-->
+<!--        });-->
+
+<!--        const statusCode = response.status;-->
+<!--        lastCodePill.style.display = "inline-flex";-->
+<!--        lastCodeText.textContent = "HTTP " + statusCode;-->
+<!--        if (statusCode >= 200 && statusCode < 300) {-->
+<!--          lastCodePill.style.background = "rgba(22, 163, 74, 0.16)";-->
+<!--          lastCodeText.style.color = "#bbf7d0";-->
+<!--        } else {-->
+<!--          lastCodePill.style.background = "rgba(248, 113, 113, 0.16)";-->
+<!--          lastCodeText.style.color = "#fecaca";-->
+<!--        }-->
+
+<!--        if (!response.ok) {-->
+<!--          lastStatus.textContent = "Error";-->
+<!--          const text = await response.text();-->
+<!--          statusText.innerHTML =-->
+<!--            '<span class="error">Backend returned ' + statusCode + '.</span> ' +-->
+<!--            "<br><small>" + (text || "Check server logs for details.") + "</small>";-->
+<!--        } else {-->
+<!--          const blob = await response.blob();-->
+<!--          const contentType = response.headers.get("content-type") || "";-->
+<!--          if (!contentType.includes("pdf")) {-->
+<!--            statusText.innerHTML =-->
+<!--              '<span class="error">Response is not a PDF (content-type: ' + contentType + ").</span>";-->
+<!--            lastStatus.textContent = "Unexpected response";-->
+<!--          } else {-->
+<!--            const url = window.URL.createObjectURL(blob);-->
+<!--            const a = document.createElement("a");-->
+<!--            a.href = url;-->
+
+<!--            const disposition = response.headers.get("content-disposition") || "";-->
+<!--            const match = disposition.match(/filename="?([^"]+)"?/i);-->
+<!--            const filename = match ? match[1] : "converted.pdf";-->
+
+<!--            a.download = filename;-->
+<!--            document.body.appendChild(a);-->
+<!--            a.click();-->
+<!--            a.remove();-->
+<!--            window.URL.revokeObjectURL(url);-->
+
+<!--            statusText.innerHTML = '<span class="ok">PDF downloaded successfully.</span>';-->
+<!--            lastStatus.textContent = "Success";-->
+<!--          }-->
+<!--        }-->
+<!--      } catch (err) {-->
+<!--        console.error(err);-->
+<!--        statusText.innerHTML =-->
+<!--          '<span class="error">Network or CORS error. Check the endpoint and browser console.</span>';-->
+<!--        lastStatus.textContent = "Network error";-->
+<!--      } finally {-->
+<!--        submitBtn.disabled = false;-->
+<!--        btnText.textContent = "Convert & Download PDF";-->
+<!--      }-->
+<!--    });-->
+
+<!--    async function checkHealth() {-->
+<!--      try {-->
+<!--        const url = apiUrlInput.value.trim();-->
+<!--        if (!url) return;-->
+<!--        const base = url.replace(/\/+$/, "").replace(/\/api\/pdf\/convert$/, "");-->
+<!--        const healthUrl = base + "/actuator/health";-->
+
+<!--        const res = await fetch(healthUrl, { method: "GET" });-->
+<!--        healthPill.style.display = "inline-flex";-->
+<!--        if (res.ok) {-->
+<!--          healthStatus.textContent = "UP";-->
+<!--          healthPillText.textContent = "UP";-->
+<!--        } else {-->
+<!--          healthStatus.textContent = "Responding (" + res.status + ")";-->
+<!--          healthPillText.textContent = "Check";-->
+<!--        }-->
+<!--      } catch (e) {-->
+<!--        healthStatus.textContent = "Unavailable";-->
+<!--        healthPill.style.display = "none";-->
+<!--      }-->
+<!--    }-->
+
+<!--    checkHealth();-->
+<!--</script>-->
+
+<!--</body>-->
+
+
+<!--</html>-->
+
+
