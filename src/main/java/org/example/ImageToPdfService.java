@@ -10,6 +10,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/**
+ * Service for converting images to PDF.
+ */
 @Service
 public class ImageToPdfService {
 
