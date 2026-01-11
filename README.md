@@ -338,6 +338,13 @@ docker run -p 9090:8080 \
 mvn dependency:tree
 ```
 
+### Javadoc api documentation
+```bash
+mvn javadoc:javadoc
+
+- target\site\apidocs\index.html
+```
+
 ## 🛠️ Troubleshooting
 
 ### Issue: Port 8080 Already in Use
